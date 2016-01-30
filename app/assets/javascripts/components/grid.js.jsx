@@ -1,7 +1,10 @@
 var Cell = React.createClass({
     render: function() {
         return (
-            <td className={this.props.symbol} id={this.props.cell_id} />
+            <td
+                className={this.props.symbol}
+                id={this.props.cell_id}
+            />
         )
     }
 });
@@ -14,7 +17,11 @@ var Row = React.createClass({
             if (cells.hasOwnProperty(cell)) {
                 var cell_id = cells[cell]['cell_id'];
                 var symbol = cells[cell]['symbol'];
-                reactCells.push(<Cell symbol={symbol} cell_id={cell_id} key={cell_id} />);
+                reactCells.push(<Cell
+                    symbol={symbol}
+                    cell_id={cell_id}
+                    key={cell_id}
+                />);
             }
         }
         return (
@@ -31,7 +38,6 @@ var Grid = React.createClass({
             rows: {}
         }
     },
-
     loadGridFromServer: function() {
         $.ajax({
             url: this.props.getGrid,
@@ -49,23 +55,26 @@ var Grid = React.createClass({
     componentDidMount: function() {
         this.loadGridFromServer();
     },
-    getRows: function() {
-        var rawRows = this.state.rows;
-        var rows = [];
-        for (var row in rawRows) {
-            if (rawRows.hasOwnProperty(row)) {
-                var cells = rawRows[row];
-                rows.push(<Row cells={cells} key={row} />);
+    getTableBody: function() {
+        var rows = this.state.rows;
+        var reactRows = [];
+        for (var row in rows) {
+            if (rows.hasOwnProperty(row)) {
+                var cells = rows[row];
+                reactRows.push(<Row
+                    cells={cells}
+                    key={row}
+                />);
             }
         }
         return (
             <tbody>
-                {rows}
+                {reactRows}
             </tbody>
         )
     },
     render: function() {
-        var rows = this.getRows();
+        var rows = this.getTableBody();
         return (
             <div>
                 <h1>Grid</h1>

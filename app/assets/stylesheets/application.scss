@@ -18,15 +18,13 @@
         &:first-of-type {
           margin-left: 0;
         }
+        &:last-of-type {
+          margin-right: 0;
+        }
       }
-
       &:last-of-type {
         td {
           margin-bottom: 0;
-
-          &:last-of-type {
-            margin-right: 0;
-          }
         }
       }
     }

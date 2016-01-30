@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'nested-hstore'
+gem 'react-rails', '~> 1.5.0'
 
 group :development, :test do
   gem 'thin'

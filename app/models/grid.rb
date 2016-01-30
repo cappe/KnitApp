@@ -7,9 +7,9 @@ class Grid < ActiveRecord::Base
     def init_cells
       rows = {}
       cell_id = 0
-      2.times do |row|
+      3.times do |row|
         cells = {}
-        2.times do |cell|
+        3.times do |cell|
           cells[cell] = {:cell_id => cell_id, :symbol => :square}
           cell_id += 1
         end

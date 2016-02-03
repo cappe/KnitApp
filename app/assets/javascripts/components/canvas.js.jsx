@@ -21,7 +21,10 @@ var Canvas = React.createClass({
     },
     getTools: function() {
         return (
-            <Tools onChange={this.handleToolChange} />
+            <Tools
+                currentTool={this.state.current_tool}
+                onChange={this.handleToolChange}
+            />
         )
     },
     render: function() {

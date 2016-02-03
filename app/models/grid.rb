@@ -9,7 +9,7 @@ class Grid < ActiveRecord::Base
       cell_id = 0
       3.times do |row|
         cells = {}
-        3.times do |cell|
+        5.times do |cell|
           cells[cell] = {:cell_id => cell_id, :symbol => :square}
           cell_id += 1
         end

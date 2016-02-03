@@ -4,6 +4,7 @@ var Cell = React.createClass({
             <td
                 className={this.props.symbol}
                 id={this.props.cell_id}
+                onClick={this.props.onClick}
             />
         )
     }
@@ -12,21 +13,24 @@ var Cell = React.createClass({
 var Row = React.createClass({
     render: function() {
         var cells = this.props.cells;
-        var reactCells = [];
+        var react_cells = [];
+        var object = this;
         for (var cell in cells) {
             if (cells.hasOwnProperty(cell)) {
                 var cell_id = cells[cell]['cell_id'];
                 var symbol = cells[cell]['symbol'];
-                reactCells.push(<Cell
+                react_cells.push(<Cell
                     symbol={symbol}
                     cell_id={cell_id}
                     key={cell_id}
+                    onClick={object.props.onClick}
+                    currentTool={object.props.currentTool}
                 />);
             }
         }
         return (
             <tr>
-                {reactCells}
+                {react_cells}
             </tr>
         )
     }
@@ -55,21 +59,43 @@ var Grid = React.createClass({
     componentDidMount: function() {
         this.loadGridFromServer();
     },
+    handleCellClick: function(e) {
+        var target_cell_id = e.target.id;
+        var rows = this.state.rows;
+        var row_keys = Object.keys(rows);
+        var found = false;
+        for (i in row_keys) {
+            var row = rows[row_keys[i]];
+            for (var k = 0; k < Object.keys(row).length; k++) {
+                var cell_id = rows[row_keys[i]][k].cell_id;
+                if (cell_id == target_cell_id) {
+                    rows[row_keys[i]][k].symbol = this.props.currentTool;
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
+        }
+        this.setState({rows: rows});
+    },
     getTableBody: function() {
         var rows = this.state.rows;
-        var reactRows = [];
+        var react_rows = [];
+        var object = this;
         for (var row in rows) {
             if (rows.hasOwnProperty(row)) {
                 var cells = rows[row];
-                reactRows.push(<Row
+                react_rows.push(<Row
                     cells={cells}
                     key={row}
+                    onClick={object.handleCellClick}
+                    currentTool={object.props.currentTool}
                 />);
             }
         }
         return (
             <tbody>
-                {reactRows}
+                {react_rows}
             </tbody>
         )
     },
@@ -85,8 +111,3 @@ var Grid = React.createClass({
         )
     }
 });
-
-ReactDOM.render(
-    <Grid getGrid="/grid" />,
-    document.getElementById('grid-container')
-);

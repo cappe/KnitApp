@@ -1,12 +1,40 @@
-var Tools = React.createClass({
+var tools = ['square', 'line', 'triangle'];
+
+var RadioButton = React.createClass({
     render: function() {
+        var tool = this.props.tool;
         return (
-            <h1>Tools</h1>
+            <div className="row">
+                <input
+                    type="radio"
+                    name="tool"
+                    value={tool}
+                    onChange={this.props.onChange}
+                    id={tool} />
+                <label htmlFor={tool}>
+                    {tool.charAt(0).toUpperCase() + tool.slice(1)}
+                </label>
+            </div>
         )
     }
 });
 
-ReactDOM.render(
-    <Tools />,
-    document.getElementById('tools-container')
-);
+var Tools = React.createClass({
+    render: function() {
+        var object = this;
+        return (
+            <div>
+                <h1>Tools</h1>
+                <div>
+                    {tools.map(function(tool, i) {
+                        return <RadioButton
+                            tool={tool}
+                            key={i}
+                            onChange={object.props.onChange}
+                        />
+                    })}
+                </div>
+            </div>
+        )
+    }
+});

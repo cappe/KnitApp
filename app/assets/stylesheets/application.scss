@@ -2,7 +2,6 @@
 @import "bootstrap";
 
 #grid-container {
-
   table {
     border-collapse: collapse;
     tr {
@@ -12,7 +11,6 @@
         margin-left: 1px;
         margin-right: 1px;
         margin-bottom: 2px;
-        background-color: gray;
         float: left;
 
         &:first-of-type {
@@ -21,12 +19,36 @@
         &:last-of-type {
           margin-right: 0;
         }
+
+        &.square {
+          background-color: gray;
+        }
+        &.line {
+          background-color: darkblue;
+        }
+        &.triangle {
+          background-color: darkred;
+        }
+
       }
       &:last-of-type {
         td {
           margin-bottom: 0;
         }
       }
+    }
+  }
+}
+
+#tools-container {
+  .row {
+    padding-left: 16px;
+    label {
+      margin-bottom: 0;
+      margin-left: 10px;
+    }
+    input[type="radio"] {
+      margin-top: 0;
     }
   }
 }

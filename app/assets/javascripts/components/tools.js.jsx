@@ -28,7 +28,7 @@ var Tools = React.createClass({
         return (
             <div>
                 <h1>Tools</h1>
-                <div>
+                <div className="symbol-container">
                     {tools.map(function(tool, i) {
                         return <RadioButton
                             tool={tool}
@@ -37,6 +37,12 @@ var Tools = React.createClass({
                             onChange={object.props.onChange}
                         />
                     })}
+                </div>
+                <div className="button-container">
+                    <button
+                        type="button"
+                        onClick={this.props.addRow}
+                        className="btn btn-default btn-sm">Add row</button>
                 </div>
             </div>
         )

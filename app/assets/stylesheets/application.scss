@@ -45,14 +45,19 @@
 }
 
 #tools-container {
-  .row {
-    padding-left: 16px;
-    label {
-      margin-bottom: 0;
-      margin-left: 10px;
+  .symbol-container {
+    .row {
+      padding-left: 16px;
+      label {
+        margin-bottom: 0;
+        margin-left: 10px;
+      }
+      input[type="radio"] {
+        margin-top: 0;
+      }
     }
-    input[type="radio"] {
-      margin-top: 0;
-    }
+  }
+  .button-container {
+    margin-top: 20px;
   }
 }

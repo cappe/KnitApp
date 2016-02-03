@@ -11,10 +11,14 @@ var Canvas = React.createClass({
         var new_tool = e.target.value;
         this.setState({current_tool: new_tool});
     },
+    addRow: function() {
+        this.refs.grid.handleAddRow();
+    },
     getGrid: function() {
         return (
             <Grid
                 getGrid="/grid"
+                ref="grid"
                 currentTool={this.state.current_tool}
             />
         )
@@ -24,6 +28,7 @@ var Canvas = React.createClass({
             <Tools
                 currentTool={this.state.current_tool}
                 onChange={this.handleToolChange}
+                addRow={this.addRow}
             />
         )
     },

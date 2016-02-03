@@ -138,12 +138,6 @@ var Grid = React.createClass({
                 <table>
                     {body}
                 </table>
-                <div className="button-container">
-                    <button
-                        type="button"
-                        onClick={this.handleAddRow}
-                        className="btn btn-default btn-sm">Add row</button>
-                </div>
             </div>
         )
     }

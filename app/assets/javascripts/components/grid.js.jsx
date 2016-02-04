@@ -19,29 +19,6 @@ var Cell = React.createClass({
 });
 
 var Row = React.createClass({
-    getNewRow: function(grid) {
-        var object = this;
-        var new_row = {};
-        for (var x = 0; x < grid['cell_count']; x++) {
-            new_row[x] = {
-                cell_id: grid['next_cell_id'],
-                symbol: object.props.currentTool
-            };
-            grid['next_cell_id']++;
-        }
-        return [grid['row_count'], new_row];
-    },
-    getNewCol: function(grid, rows) {
-        var object = this;
-        for (var x = 0; x < grid['row_count']; x++) {
-            rows[x][grid['cell_count']] = {
-                cell_id: grid['next_cell_id'],
-                symbol: object.props.currentTool
-            };
-            grid['next_cell_id']++;
-        }
-        return rows;
-    },
     render: function() {
         var cells = this.props.cells;
         var react_cells = [];
@@ -146,14 +123,48 @@ var Grid = React.createClass({
     },
     handleAddRow: function() {
         var rows = this.state.rows;
-        var new_row = this.refs.row.getNewRow(this.getGridDetails(rows));
-        rows[new_row[0]] = new_row[1];
+        var grid = this.getGridDetails();
+        var object = this;
+        var new_row = {};
+        for (var x = 0; x < grid['cell_count']; x++) {
+            new_row[x] = {
+                cell_id: grid['next_cell_id'],
+                symbol: object.props.currentTool
+            };
+            grid['next_cell_id']++;
+        }
+        rows[grid['row_count']] = new_row;
         this.setState({rows: rows});
     },
     handleAddCol: function() {
         var rows = this.state.rows;
-        var new_rows = this.refs.row.getNewCol(this.getGridDetails(), rows);
-        this.setState({rows: new_rows});
+        var grid = this.getGridDetails();
+        var object = this;
+        for (var x = 0; x < grid['row_count']; x++) {
+            rows[x][grid['cell_count']] = {
+                cell_id: grid['next_cell_id'],
+                symbol: object.props.currentTool
+            };
+            grid['next_cell_id']++;
+        }
+        this.setState({rows: rows});
+    },
+    handleRemoveRow: function() {
+        var rows = this.state.rows;
+        var grid = this.getGridDetails(rows);
+        delete rows[grid['row_count']-1];
+        this.setState({rows: rows});
+    },
+    handleRemoveCol: function() {
+        var rows = this.state.rows;
+        var grid = this.getGridDetails();
+        var object = this;
+        for (var x = 0; x < grid['row_count']; x++) {
+            delete rows[x][grid['cell_count']-1];
+            //delete rows[x][grid['cell_count']];
+            grid['next_cell_id']++;
+        }
+        this.setState({rows: rows});
     },
     render: function() {
         var body = this.getTableBody();

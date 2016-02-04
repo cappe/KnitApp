@@ -38,15 +38,23 @@ var Tools = React.createClass({
                         />
                     })}
                 </div>
-                <div className="button-container">
+                <div className="button-container btn-group-vertical btn-group-sm" role="group">
                     <button
                         type="button"
                         onClick={this.props.addRow}
-                        className="btn btn-default btn-sm">Add row</button>
+                        className="btn btn-default">Add row</button>
                     <button
                         type="button"
                         onClick={this.props.addCol}
-                        className="btn btn-default btn-sm">Add col</button>
+                        className="btn btn-default">Add col</button>
+                    <button
+                        type="button"
+                        onClick={this.props.removeRow}
+                        className="btn btn-default">Remove row</button>
+                    <button
+                        type="button"
+                        onClick={this.props.removeCol}
+                        className="btn btn-default">Remove col</button>
                 </div>
             </div>
         )

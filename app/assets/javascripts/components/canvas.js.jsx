@@ -17,6 +17,12 @@ var Canvas = React.createClass({
     addCol: function() {
         this.refs.grid.handleAddCol();
     },
+    removeRow: function() {
+        this.refs.grid.handleRemoveRow();
+    },
+    removeCol: function() {
+        this.refs.grid.handleRemoveCol();
+    },
     getGrid: function() {
         return (
             <Grid
@@ -33,6 +39,8 @@ var Canvas = React.createClass({
                 onChange={this.handleToolChange}
                 addRow={this.addRow}
                 addCol={this.addCol}
+                removeRow={this.removeRow}
+                removeCol={this.removeCol}
             />
         )
     },

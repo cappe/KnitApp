@@ -23,10 +23,14 @@ var Canvas = React.createClass({
     removeCol: function() {
         this.refs.grid.handleRemoveCol();
     },
+    save: function() {
+        this.refs.grid.handleSave();
+    },
     getGrid: function() {
         return (
             <Grid
                 getGrid="/grid"
+                saveGrid="/save"
                 ref="grid"
                 currentTool={this.state.current_tool}
             />
@@ -41,6 +45,7 @@ var Canvas = React.createClass({
                 addCol={this.addCol}
                 removeRow={this.removeRow}
                 removeCol={this.removeCol}
+                save={this.save}
             />
         )
     },

@@ -1,0 +1,13 @@
+var animation_time = 500;
+
+$('#flash')
+    .html('<%= j render partial: "shared/flash" %>')
+    .animate({
+      opacity: 1
+    }, animation_time, function() {
+      setTimeout(function() {
+        $('#flash').animate({
+          opacity: 0
+        }, animation_time)
+      }, animation_time*2)
+    });

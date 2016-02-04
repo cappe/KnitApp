@@ -61,3 +61,23 @@
     margin-top: 20px;
   }
 }
+
+#flash {
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  opacity: 0;
+
+  .notice, .error {
+    padding: 10px 20px;
+    color: white;
+  }
+  .notice {
+    background-color: rgba(7, 146, 11, 0.8);
+  }
+  .error {
+    background-color: red;
+  }
+}

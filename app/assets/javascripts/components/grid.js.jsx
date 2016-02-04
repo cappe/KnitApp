@@ -50,6 +50,21 @@ var Grid = React.createClass({
             rows: {}
         }
     },
+    handleSave: function() {
+        $.ajax({
+            url: this.props.saveGrid,
+            type: 'POST',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            data: {rows: this.state.rows},
+            cache: false,
+            success: function() {
+
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.saveGrid, status, err.toString());
+            }.bind(this)
+        });
+    },
     loadGridFromServer: function() {
         $.ajax({
             url: this.props.getGrid,
@@ -124,7 +139,7 @@ var Grid = React.createClass({
     handleAddRow: function() {
         var rows = this.state.rows;
         var grid = this.getGridDetails();
-        if (grid['row_count'] < 500) {
+        if (grid['row_count'] < 200) {
             var object = this;
             var new_row = {};
             for (var x = 0; x < grid['cell_count']; x++) {
@@ -141,7 +156,7 @@ var Grid = React.createClass({
     handleAddCol: function() {
         var rows = this.state.rows;
         var grid = this.getGridDetails();
-        if (grid['cell_count'] < 500) {
+        if (grid['cell_count'] < 200) {
             var object = this;
             for (var x = 0; x < grid['row_count']; x++) {
                 rows[x][grid['cell_count']] = {

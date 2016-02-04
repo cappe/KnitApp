@@ -55,6 +55,10 @@ var Tools = React.createClass({
                         type="button"
                         onClick={this.props.removeCol}
                         className="btn btn-default">Remove col</button>
+                    <button
+                        type="button"
+                        onClick={this.props.save}
+                        className="btn btn-default">Save</button>
                 </div>
             </div>
         )

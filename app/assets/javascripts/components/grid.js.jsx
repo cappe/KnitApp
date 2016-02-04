@@ -19,20 +19,29 @@ var Cell = React.createClass({
 });
 
 var Row = React.createClass({
-    getNewRow: function(cell_count) {
-        var cell_id = this.props.cells[cell_count-1].cell_id;
-        var react_cells = {};
+    getNewRow: function(grid) {
         var object = this;
-        for (var x = 0; x < cell_count; x++) {
-            cell_id++;
-            react_cells[x] = {
-                cell_id: cell_id,
+        var new_row = {};
+        for (var x = 0; x < grid['cell_count']; x++) {
+            new_row[x] = {
+                cell_id: grid['next_cell_id'],
                 symbol: object.props.currentTool
             };
+            grid['next_cell_id']++;
         }
-        return react_cells;
+        return [grid['row_count'], new_row];
     },
-
+    getNewCol: function(grid, rows) {
+        var object = this;
+        for (var x = 0; x < grid['row_count']; x++) {
+            rows[x][grid['cell_count']] = {
+                cell_id: grid['next_cell_id'],
+                symbol: object.props.currentTool
+            };
+            grid['next_cell_id']++;
+        }
+        return rows;
+    },
     render: function() {
         var cells = this.props.cells;
         var react_cells = [];
@@ -122,13 +131,29 @@ var Grid = React.createClass({
         }
         this.setState({rows: rows});
     },
-    handleAddRow: function() {
+    getGridDetails: function() {
         var rows = this.state.rows;
         var row_keys = Object.keys(rows);
         var row_count = row_keys.length;
         var cell_count = Object.size(rows[row_keys.length-1]);
-        rows[row_count] = this.refs.row.getNewRow(cell_count);
+        var next_cell_id = rows[row_count-1][cell_count-1].cell_id++;
+        return {
+            row_keys: row_keys,
+            row_count: row_count,
+            cell_count: cell_count,
+            next_cell_id: next_cell_id
+        };
+    },
+    handleAddRow: function() {
+        var rows = this.state.rows;
+        var new_row = this.refs.row.getNewRow(this.getGridDetails(rows));
+        rows[new_row[0]] = new_row[1];
         this.setState({rows: rows});
+    },
+    handleAddCol: function() {
+        var rows = this.state.rows;
+        var new_rows = this.refs.row.getNewCol(this.getGridDetails(), rows);
+        this.setState({rows: new_rows});
     },
     render: function() {
         var body = this.getTableBody();

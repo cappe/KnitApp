@@ -43,6 +43,10 @@ var Tools = React.createClass({
                         type="button"
                         onClick={this.props.addRow}
                         className="btn btn-default btn-sm">Add row</button>
+                    <button
+                        type="button"
+                        onClick={this.props.addCol}
+                        className="btn btn-default btn-sm">Add col</button>
                 </div>
             </div>
         )

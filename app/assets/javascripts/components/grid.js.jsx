@@ -190,7 +190,7 @@ var Grid = React.createClass({
     render: function() {
         var body = this.getTableBody();
         return (
-            <div>
+            <div className="col-xs-9" id="grid-container">
                 <h1>Grid</h1>
                 <table>
                     {body}

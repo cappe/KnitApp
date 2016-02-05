@@ -26,7 +26,7 @@ var Tools = React.createClass({
     render: function() {
         var object = this;
         return (
-            <div>
+            <div className="col-xs-3" id="tools-container">
                 <h1>Tools</h1>
                 <div className="symbol-container">
                     {tools.map(function(tool, i) {
@@ -60,6 +60,7 @@ var Tools = React.createClass({
                         onClick={this.props.save}
                         className="btn btn-default">Save</button>
                 </div>
+                <div id="color-picker"></div>
             </div>
         )
     }

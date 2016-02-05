@@ -53,13 +53,9 @@ var Canvas = React.createClass({
         var tools = this.getTools();
         var grid = this.getGrid();
         return (
-            <div>
-                <div className="col-xs-3" id="tools-container">
-                    {tools}
-                </div>
-                <div className="col-xs-9" id="grid-container">
-                    {grid}
-                </div>
+            <div id="canvas">
+                {tools}
+                {grid}
             </div>
         )
     }
@@ -67,5 +63,5 @@ var Canvas = React.createClass({
 
 ReactDOM.render(
     <Canvas />,
-    document.getElementById('canvas')
+    document.getElementById('main')
 );

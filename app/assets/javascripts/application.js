@@ -17,4 +17,9 @@
 //= require react_ujs
 //= require components
 //= require bootstrap-sprockets
+//= require color_picker.min
 //= require_tree .
+
+$(document).ready(function() {
+    $('#color-picker').colorPicker();
+});

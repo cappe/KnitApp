@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html, body {
+  position: relative;
+  height: 100%;
+}
+
+#canvas {
+  min-height: 100vh;
+}
+
 #grid-container {
   table {
     border-collapse: collapse;

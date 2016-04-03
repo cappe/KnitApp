@@ -1,21 +1,25 @@
 class Grid < ActiveRecord::Base
-  serialize :rows, ActiveRecord::Coders::NestedHstore
-  before_create :init_cells
+	serialize :rows, ActiveRecord::Coders::NestedHstore
+	before_create :init_cells
 
-  private
+	private
 
-    def init_cells
-      rows = {}
-      cell_id = 0
-      3.times do |row|
-        cells = {}
-        5.times do |cell|
-          cells[cell] = {:cell_id => cell_id, :symbol => :square}
-          cell_id += 1
-        end
-        rows[row] = cells
-      end
-      self.rows = rows
-    end
+	def init_cells
+		rows = {}
+		cell_id = 0
+		3.times do |row|
+			cells = {}
+			5.times do |cell|
+				cells[cell] = {
+						:cell_id	=> cell_id,
+						:symbol		=> '',
+						:color		=> '#333333'
+				}
+				cell_id += 1
+			end
+			rows[row] = cells
+		end
+		self.rows = rows
+	end
 
 end

@@ -4,13 +4,37 @@
 var Canvas = React.createClass({
     getInitialState: function() {
         return {
-            current_tool: 'square'
+            current_symbol: 'square',
+			current_color: '#8DFF62',
+			current_tool: 'color'
         }
     },
-    handleToolChange: function(e) {
-        var new_tool = e.target.value;
-        this.setState({current_tool: new_tool});
+	/*
+	handleCellClick: function(e) {
+		console.log("cell clicked");
+	},
+	*/
+	handleToolChange: function(e) {
+		var tool = $(e.target).attr('class');
+		if (tool === 'symbol') {
+			var new_symbol = e.target.value;
+			this.setState({ current_symbol: new_symbol });
+		} else if (tool === 'color') {
+			var new_color = $(e.target).css('backgroundColor');
+			this.setState({ current_color: new_color })
+		}
+		this.setState({ current_tool: tool });
+	},
+	/*
+    handleSymbolChange: function(e) {
+        var new_symbol = e.target.value;
+        this.setState({ current_symbol: new_symbol });
     },
+	handleColorChange: function(e) {
+		var new_color = $(e.target).css('backgroundColor');
+		this.setState({ current_color: new_color });
+	},
+	*/
     addRow: function() {
         this.refs.grid.handleAddRow();
     },
@@ -32,15 +56,18 @@ var Canvas = React.createClass({
                 getGrid="/grid"
                 saveGrid="/save"
                 ref="grid"
-                currentTool={this.state.current_tool}
+                currentSymbol={this.state.current_symbol}
+				currentColor={this.state.current_color}
+				currentTool={this.state.current_tool}
             />
         )
     },
     getTools: function() {
         return (
             <Tools
-                currentTool={this.state.current_tool}
-                onChange={this.handleToolChange}
+                currentSymbol={this.state.current_symbol}
+				currentColor={this.state.current_color}
+				onToolChange={this.handleToolChange}
                 addRow={this.addRow}
                 addCol={this.addCol}
                 removeRow={this.removeRow}

@@ -12,23 +12,28 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require turbolinks
 //= require react
 //= require react_ujs
 //= require components
 //= require bootstrap-sprockets
-//= require jquery.colorpicker
+//= require jquery.simplecolorpicker.js
 //= require_tree .
 
-$(document).ready(function() {
-    $('#colorpicker').colorpicker({
-        parts:          'full',
-        autoOpen:       true,
-        buttonImage:    ,
-        alpha:          true,
-        showOn:         'both',
-        buttonColorize: true,
-        showNoneButton: true
-    });
-});
+var KnitApp = {
+	init: function() {
+		this.colorPicker();
+	},
+
+	colorPicker: function() {
+		/*
+		$('select[name="colorpicker"]').simplecolorpicker({
+
+		}).on('change', function() {
+			//$(document.body).css('background-color', $('select[name="colorpicker"]').val());
+		});
+		*/
+	}
+};
+
+$(document).ready(KnitApp.init());

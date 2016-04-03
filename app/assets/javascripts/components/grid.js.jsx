@@ -10,10 +10,9 @@ var Cell = React.createClass({
     render: function() {
         return (
             <td
-                className={this.props.symbol}
+				style={{backgroundColor: this.props.color}}
                 id={this.props.cell_id}
-                onClick={this.props.onClick}
-            />
+				onClick={this.props.onCellClick}>{this.props.symbol}</td>
         )
     }
 });
@@ -22,17 +21,19 @@ var Row = React.createClass({
     render: function() {
         var cells = this.props.cells;
         var react_cells = [];
-        var object = this;
         for (var cell in cells) {
             if (cells.hasOwnProperty(cell)) {
                 var cell_id = cells[cell]['cell_id'];
                 var symbol = cells[cell]['symbol'];
+				var color = cells[cell]['color'];
                 react_cells.push(<Cell
                     symbol={symbol}
+					color={color}
                     cell_id={cell_id}
                     key={cell_id}
-                    onClick={object.props.onClick}
-                    currentTool={object.props.currentTool}
+					onCellClick={this.props.onCellClick}
+                    currentSymbol={this.props.currentSymbol}
+					currentColor={this.props.currentColor}
                 />);
             }
         }
@@ -85,7 +86,6 @@ var Grid = React.createClass({
     getTableBody: function() {
         var rows = this.state.rows;
         var react_rows = [];
-        var object = this;
         for (var row in rows) {
             if (rows.hasOwnProperty(row)) {
                 var cells = rows[row];
@@ -93,8 +93,9 @@ var Grid = React.createClass({
                     cells={cells}
                     key={row}
                     ref={'row'}
-                    onClick={object.handleCellClick}
-                    currentTool={object.props.currentTool}
+                    onCellClick={this.handleCellClick}
+                    currentSymbol={this.props.currentSymbol}
+					currentColor={this.props.currentColor}
                 />);
             }
         }
@@ -105,6 +106,7 @@ var Grid = React.createClass({
         )
     },
     handleCellClick: function(e) {
+		var current_tool = this.props.currentTool;
         var target_cell_id = e.target.id;
         var rows = this.state.rows;
         var row_keys = Object.keys(rows);
@@ -114,7 +116,10 @@ var Grid = React.createClass({
             for (var k = 0; k < Object.keys(row).length; k++) {
                 var cell_id = rows[row_keys[i]][k].cell_id;
                 if (cell_id == target_cell_id) {
-                    rows[row_keys[i]][k].symbol = this.props.currentTool;
+					if (current_tool === 'symbol')
+                    	rows[row_keys[i]][k].symbol = this.props.currentSymbol;
+					else if (current_tool === 'color')
+						rows[row_keys[i]][k].color = this.props.currentColor;
                     found = true;
                     break;
                 }
@@ -140,12 +145,11 @@ var Grid = React.createClass({
         var rows = this.state.rows;
         var grid = this.getGridDetails();
         if (grid['row_count'] < 200) {
-            var object = this;
             var new_row = {};
             for (var x = 0; x < grid['cell_count']; x++) {
                 new_row[x] = {
                     cell_id: grid['next_cell_id'],
-                    symbol: object.props.currentTool
+                    symbol: this.props.currentSymbol
                 };
                 grid['next_cell_id']++;
             }
@@ -157,11 +161,10 @@ var Grid = React.createClass({
         var rows = this.state.rows;
         var grid = this.getGridDetails();
         if (grid['cell_count'] < 200) {
-            var object = this;
             for (var x = 0; x < grid['row_count']; x++) {
                 rows[x][grid['cell_count']] = {
                     cell_id: grid['next_cell_id'],
-                    symbol: object.props.currentTool
+                    symbol: this.props.currentSymbol
                 };
                 grid['next_cell_id']++;
             }
